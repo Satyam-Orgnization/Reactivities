@@ -1,3 +1,4 @@
+using Application.Activities;
 using Microsoft.EntityFrameworkCore;
 using Presistence;
 
@@ -16,6 +17,8 @@ builder.Services.AddDbContext<DataContext>(opt =>
 builder.Services.AddCors(opt =>
     opt.AddPolicy("CorsPolicy", builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin())
 );
+
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(List.Query).Assembly));
 
 var app = builder.Build();
 
