@@ -10,31 +10,29 @@ using System.Threading.Tasks;
 
 namespace Application.Activities
 {
-    public class Edit
+    public class Delete
     {
         public class Command : IRequest
         {
-            public Activity Activity { get; set; }
+            public int Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
         {
 
             private readonly DataContext _dataContext;
-            private readonly IMapper _mapper;
 
-            public Handler(DataContext dataContext, IMapper mapper)
+            public Handler(DataContext dataContext)
             {
                 this._dataContext = dataContext;
-                this._mapper = mapper;
             }
             public async Task Handle(Command request, CancellationToken cancellationToken)
             {
-                Activity activity = _dataContext.Activities.Find(request.Activity.Id);
+                Activity activity = _dataContext.Activities.Find(request.Id);
 
-                _mapper.Map(request.Activity, activity);
+                _dataContext.Activities.Remove(activity);
 
-                await _dataContext.SaveChangesAsync();
+               await _dataContext.SaveChangesAsync();
             }
         }
     }
