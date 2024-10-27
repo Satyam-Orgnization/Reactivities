@@ -1,21 +1,15 @@
 import { Menu, Container, Button } from 'semantic-ui-react'
 
-const ButtonExamplePositive = () => (
-    <div>
-        <Button positive>Create Activity</Button>
-    </div>
-)
-
 export default function NavBar() {
     return (
-        <Menu inverted stackable className="custom-nav">
+        <Menu inverted fixed='top'>
             <Container>
                 <Menu.Item header>
                     <img src='/assets/logo.png' alt='logo' />
                 </Menu.Item>
                 <Menu.Item name='Reactivities' />
                 <Menu.Item>
-                    <ButtonExamplePositive />
+                    <Button positive>Create Activity</Button>
                 </Menu.Item>
             </Container>
         </Menu>
