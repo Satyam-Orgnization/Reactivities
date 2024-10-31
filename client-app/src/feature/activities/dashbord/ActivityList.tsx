@@ -5,8 +5,9 @@ interface Props
 {
     activities: Activity[];
     selectActivty: (id: string) => void;
+    deleteActivity: (id: string) => void;
 }
-export default function ActivityList({ activities, selectActivty } : Props)
+export default function ActivityList({ activities, selectActivty, deleteActivity } : Props)
 {
     const a= 
     (
@@ -27,6 +28,7 @@ export default function ActivityList({ activities, selectActivty } : Props)
                             </Item.Description>
                             <Item.Extra>
                                 <Button onClick={() => selectActivty(activity.id)} floated='right' content='View' color='blue' />
+                                <Button onClick={() => deleteActivity(activity.id)} floated='right' content='Delete' color='red' />
                                 <Label basic content={activity.category}/>
                             </Item.Extra>
                         </Item.Content>

@@ -9,9 +9,10 @@ interface Props
 {
     activity: Activity;
     cancelSelectActivity: () => void;
+    openForm: (id: string) => void;
 }
 
-const ActivityDetails = ({ activity, cancelSelectActivity }: Props) => (
+const ActivityDetails = ({ activity, cancelSelectActivity, openForm }: Props) => (
     <Card>
         <Image src={'/assets/categoryImages/' + activity.category.toLowerCase() + '.jpg'} />
         <Card.Content>
@@ -25,7 +26,7 @@ const ActivityDetails = ({ activity, cancelSelectActivity }: Props) => (
         </Card.Content>
         <Card.Content extra>
             <Button.Group>
-                <Button color='blue' content='Edit' />
+                <Button onClick={()=> openForm(activity.id)} color='blue' content='Edit' />
                 <Button onClick={cancelSelectActivity} color='grey' content='Cancel' />
             </Button.Group>
         </Card.Content>
