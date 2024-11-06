@@ -14,5 +14,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\app\models\" />
+    <Folder Include="src\app\api\" />
   </ItemGroup>
 </Project>

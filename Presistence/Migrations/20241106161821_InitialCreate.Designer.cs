@@ -12,7 +12,7 @@ using Presistence;
 namespace Presistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20241013112253_InitialCreate")]
+    [Migration("20241106161821_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,18 +20,16 @@ namespace Presistence.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "8.0.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Domain.Activity", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Category")
                         .HasColumnType("nvarchar(max)");

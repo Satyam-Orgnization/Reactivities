@@ -34,7 +34,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, Activity activity)
+        public async Task<IActionResult> Edit(Guid id, Activity activity)
         {
             activity.Id = id;
             await Mediator.Send(new Edit.Command { Activity = activity });
@@ -42,7 +42,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             await Mediator.Send(new Delete.Command { Id = id });
             return Ok();
