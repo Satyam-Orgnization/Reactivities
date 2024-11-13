@@ -8,21 +8,21 @@ import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
 
 import { v4 as uuid } from 'uuid'
+import { useStore } from '../stores/store';
 
 function App() {
+
+    const {activityStore} = useStore();
     const [activities, setActivities] = useState<Activity[]>([]);
     const [selectedActivity, setSelectedActivity] = useState<Activity>();
     const [editMode, setEditMode] = useState(false);
-    const [loading, setLoading] = useState(true);
     const [submitting, setSubmitting] = useState(false);
 
 
     useEffect(() => {
-        agent.Activities.list().then(response => {
-            setActivities(response);
-            setLoading(false);
-        })
-    }, []);
+        activityStore.loadActivities();
+        console.log( "activityStore.loadActivities()")
+    }, [activityStore]);
 
 
     function handleSelectActivity(id: string)
@@ -77,15 +77,16 @@ function App() {
         })
             
     }
-
-    if (loading) return <LoadingComponent content='Loading Activities' />
+    console.log("if (activityStore.loadingInitial)")
+    if (activityStore.loadingInitial) return <LoadingComponent content='Loading Activities' />
 
     return (
         <>
             <NavBar openForm={handleOpenForm} />
-            <Container style={{marginTop: '5em'}}>
+            <Container style={{ marginTop: '5em' }}>
+                <h1>{activityStore.activities.toString()}</h1>
                 <ActivitiesDashbord
-                    activities={activities}
+                    activities={activityStore.activities}
                     selectedActivity={selectedActivity}
                     selectActivty={handleSelectActivity}
                     cancelSelectActivity={handleCancelSelectActivity}
