@@ -9,6 +9,7 @@ import LoadingComponent from './LoadingComponent';
 
 import { v4 as uuid } from 'uuid'
 import { useStore } from '../stores/store';
+import { observer } from 'mobx-react-lite';
 
 function App() {
 
@@ -84,7 +85,6 @@ function App() {
         <>
             <NavBar openForm={handleOpenForm} />
             <Container style={{ marginTop: '5em' }}>
-                <h1>{activityStore.activities.toString()}</h1>
                 <ActivitiesDashbord
                     activities={activityStore.activities}
                     selectedActivity={selectedActivity}
@@ -102,4 +102,4 @@ function App() {
     )
 }
 
-export default App
+export default observer(App)
