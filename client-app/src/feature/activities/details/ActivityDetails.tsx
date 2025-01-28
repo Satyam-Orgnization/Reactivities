@@ -2,17 +2,19 @@ import {
     Card,
     Image,
     Button,
-} from 'semantic-ui-react'
-import { Activity } from '../../../app/models/Activity'
+} from 'semantic-ui-react';
+import { useStore } from '../../../app/stores/store';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
+import { observer } from 'mobx-react-lite';
 
-interface Props
-{
-    activity: Activity;
-    cancelSelectActivity: () => void;
-    openForm: (id: string) => void;
-}
+export default observer( function  ActivityDetails() {
 
-const ActivityDetails = ({ activity, cancelSelectActivity, openForm }: Props) => (
+    const { activityStore } = useStore();
+    const { selectedActivity: activity, cancelSelectedActivity, openForm } = activityStore;
+
+    if (!activity)
+        return <LoadingComponent />;
+
     <Card>
         <Image src={'/assets/categoryImages/' + activity.category.toLowerCase() + '.jpg'} />
         <Card.Content>
@@ -26,11 +28,9 @@ const ActivityDetails = ({ activity, cancelSelectActivity, openForm }: Props) =>
         </Card.Content>
         <Card.Content extra>
             <Button.Group>
-                <Button onClick={()=> openForm(activity.id)} color='blue' content='Edit' />
-                <Button onClick={cancelSelectActivity} color='grey' content='Cancel' />
+                <Button onClick={() => openForm(activity.id)} color='blue' content='Edit' />
+                <Button onClick={cancelSelectedActivity} color='grey' content='Cancel' />
             </Button.Group>
         </Card.Content>
     </Card>
-)
-
-export default ActivityDetails
+})

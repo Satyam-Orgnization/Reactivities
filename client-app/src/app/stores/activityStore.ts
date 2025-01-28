@@ -1,10 +1,10 @@
-import { makeAutoObservable, runInAction } from "mobx";
+import { makeAutoObservable } from "mobx";
 import { Activity } from "../models/Activity";
 import agent from "../api/agent";
 
 export default class ActivityStore {
     activities: Activity[] = [];
-    selectedActivity: Activity | null = null;
+    selectedActivity: Activity | undefined = undefined;
     editMode = false;
     loading = false;
     loadingInitial = false;
@@ -15,25 +15,42 @@ export default class ActivityStore {
     }
 
     loadActivities = async () => {
-        this.loadingInitial = true;
-        console.log("this.loadingInitial = true;")
+        this.setloadinginitial(true);
         try {
-
             const activities = await agent.Activities.list();
-            runInAction(() => {
-                activities.forEach(activity => { this.activities.push(activity) });
-                this.loadingInitial = false;
-                console.log("this.loadingInitial = false;")
-            })
-
-
+            activities.forEach(activity => {
+                activity.date = activity.date.split('T')[0];
+                this.activities.push(activity);
+            });
+            this.setloadinginitial(false);
         }
         catch (error) {
             console.log(error);
-            runInAction(() => {
-                this.loadingInitial = false;
-            })
+            this.setloadinginitial(false);
+
         }
 
     }
+
+    setloadinginitial = (state: boolean) => {
+        this.loadingInitial = state;
+    }
+
+    selectActivity = (id: string) => {
+        this.selectedActivity = this.activities.find(x => x.id === id);
+    }
+
+    cancelSelectedActivity = () => {
+        this.selectedActivity = undefined;
+    }
+
+    openForm = (id?: string) => {
+        id ? this.selectActivity(id) : this.cancelSelectedActivity();
+        this.editMode = true;
+    }
+
+    closeForm = () => {
+        this.editMode = false;
+    }
+
 }
