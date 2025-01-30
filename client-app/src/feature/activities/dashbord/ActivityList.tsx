@@ -6,7 +6,7 @@ export default function ActivityList()
 {
     const [target, setTarget] = useState('');
     const { activityStore } = useStore();
-    const { selectActivity, deleteActivity, loading, activities } = activityStore;
+    const { selectActivity, deleteActivity, loading, activityByDate } = activityStore;
 
     function handleDeleteActivity(e: SyntheticEvent<HTMLButtonElement>, id: string)
     {
@@ -18,7 +18,7 @@ export default function ActivityList()
 
         <Segment>
             <Item.Group divided>
-                {activities.map((activity, index) => (
+                {activityByDate.map((activity, index) => (
                     <Item key={index}>
                         <Item.Content>
                             <Item.Header as='a'>
