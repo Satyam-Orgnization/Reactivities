@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 import { useStore } from '../../../app/stores/store';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 
@@ -37,8 +37,8 @@ export default observer(function ActivityDetails() {
             </Card.Content>
             <Card.Content extra>
                 <Button.Group>
-                    <Button color='blue' content='Edit' />
-                    <Button color='grey' content='Cancel' />
+                    <Button as={NavLink} to={`/manage/${activity.id}`}  color='blue' content='Edit' />
+                    <Button as={NavLink} to={`/activities`}  color='grey' content='Cancel' />
                 </Button.Group>
             </Card.Content>
         </Card>
