@@ -19,9 +19,9 @@ namespace API.Controllers
             return await Mediator.Send(new List.Query(), cancellationToken);
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("{id}")]
         // GET: ActivitiesController/Details/5
-        public async Task<ActionResult<Activity>> Activity(int id)
+        public async Task<ActionResult<Activity>> Activity(Guid id)
         {
             return await Mediator.Send(new Details.Query { Id = id });
         }
